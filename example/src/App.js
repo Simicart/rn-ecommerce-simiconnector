@@ -5,7 +5,7 @@ import RnEcommerceSimiconnector from 'rn-ecommerce-simiconnector';
 export default function App() {
   return (
     <View style={styles.container}>
-      <RnEcommerceSimiconnector/>
+      <RnEcommerceSimiconnector />
     </View>
   );
 }
