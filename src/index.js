@@ -4,3 +4,5 @@ import { Text } from 'react-native';
 export default function App() {
   return <Text style={{ fontSize: 20 }}>Welcome to SimiCart</Text>;
 }
+
+export { store } from './store/index.js';
