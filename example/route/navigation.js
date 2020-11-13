@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { I18nManager, Platform, Dimensions } from 'react-native';
 import StackRoute from './stack';
-
+import DrawerContent from './DrawerContent'
 const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -42,6 +42,7 @@ function AppStack() {
                     ? 280
                     : (Dimensions.get('screen').width * 2) / 3
             }
+            drawerContent={(props) => <DrawerContent {...props} />}
         >
             <Drawer.Screen name="Root" component={AppStack} />
         </Drawer.Navigator>

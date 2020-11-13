@@ -2,7 +2,7 @@ import RnEcommerceSimiconnector from 'rn-ecommerce-simiconnector';
 
 export default {
     splash: {
-        active: false,
+        active: true,
         route_name: 'Splash',
         component: require('../src/screen/splash/pages/index').default,
     },
