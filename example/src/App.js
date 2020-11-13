@@ -1,19 +1,13 @@
 import * as React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import RnEcommerceSimiconnector from 'rn-ecommerce-simiconnector';
+import { NavigationContainer } from '@react-navigation/native';
+import AppRouter from '../route/navigation';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <RnEcommerceSimiconnector />
-    </View>
+    <NavigationContainer>
+      <AppRouter />
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
