@@ -6,6 +6,7 @@ const initialState = {
   productDetails: {},
   quote_items: {},
   home_products: [],
+  rootCategoryId: '2',
 };
 
 // Suppose data shape stay the same
@@ -13,7 +14,7 @@ const catalogSlice = createSlice({
   name: 'catalog',
   initialState: initialState,
   reducers: {
-    addProducts(state, action: PayloadAction<{}>) {
+    addProducts(state, action: PayloadAction<Array<{}>>) {
       action.payload.products.forEach((product) => {
         if (product.entity_id) {
           state.products[product.entity_id] = product;
@@ -21,7 +22,7 @@ const catalogSlice = createSlice({
       });
     },
 
-    addCategories(state, action: PayloadAction<{}>) {
+    addCategories(state, action: PayloadAction<Array<{}>>) {
       // TODO: Streamline in tree formation
       action.payload.categories.forEach((category) => {
         if (category.entity_id) {
@@ -30,7 +31,11 @@ const catalogSlice = createSlice({
       });
     },
 
-    addProductDetails(state, action: PayloadAction<{}>) {
+    setRootCategoryId(state, action: PayloadAction<string>) {
+      state.rootCategoryId = action.payload;
+    },
+
+    addProductDetails(state, action: PayloadAction<Array<{}>>) {
       action.payload.product.forEach((product) => {
         if (product.id) {
           state.products[product.id] = product;
@@ -42,7 +47,7 @@ const catalogSlice = createSlice({
       state.quote_items = action.payload;
     },
 
-    setHomeData(state, action: PayloadAction<{}>) {
+    setHomeProductData(state, action: PayloadAction<{}>) {
       state.home_products = action.payload.all_ids;
       this.addProducts(action.payload.homeproductlists);
     },
@@ -53,8 +58,10 @@ export const {
   addCategories,
   addProducts,
   addProductDetails,
-  setHomeData,
+  setHomeProductData,
+  setQuoteItems,
+  setRootCategoryId,
 } = catalogSlice.actions;
 
-export default catalogSlice.reducer;
+export default catalogSlice.actions;
 export const catalogReducer = catalogSlice.reducer;

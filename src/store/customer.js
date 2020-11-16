@@ -55,5 +55,5 @@ export const {
   removeAllOrderHistory,
 } = customerSlice.actions;
 
-export default customerSlice.reducer;
+export default customerSlice.actions;
 export const customerReducer = customerSlice.reducer;

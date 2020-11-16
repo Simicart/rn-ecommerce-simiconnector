@@ -1,4 +1,6 @@
+import React from 'react';
 import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
 import { combineReducers } from 'redux';
 import { appReducer } from './app_slice.js';
 import { catalogReducer } from './catalog_slice.js';
@@ -12,9 +14,15 @@ const reducer = combineReducers({
   customer: customerReducer,
 });
 
-const store = configureStore({
+const baseStore = configureStore({
   reducer: reducer,
 });
 
-export default store;
-export { store };
+export default baseStore;
+export { baseStore };
+
+export const BaseStoreProvider = (props) => {
+  const { children } = props;
+
+  return <Provider store={baseStore}>{children}</Provider>;
+};

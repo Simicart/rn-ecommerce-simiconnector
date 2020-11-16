@@ -44,5 +44,5 @@ export const {
   setShippingAddress,
 } = checkoutSlice.actions;
 
-export default checkoutSlice.reducer;
+export default checkoutSlice.actions;
 export const checkoutReducer = checkoutSlice.reducer;

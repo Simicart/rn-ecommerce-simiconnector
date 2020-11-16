@@ -42,5 +42,5 @@ export const {
   setUpdateNotification,
 } = appSlice.actions;
 
-export default appSlice.reducer;
+export default appSlice.actions;
 export const appReducer = appSlice.reducer;
