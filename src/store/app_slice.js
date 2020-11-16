@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   loadingType: 'none',
   hasUpdate: false,
+  stack: 'splash',
 };
 
 const appSlice = createSlice({
@@ -30,6 +31,10 @@ const appSlice = createSlice({
 
     setUpdateNotification(state, action: PayloadAction<boolean>) {
       state.hasUpdate = action.payload;
+    },
+
+    setRouteName(state, action: PayloadAction<boolean>) {
+      state.stack = action.payload;
     },
   },
 });
