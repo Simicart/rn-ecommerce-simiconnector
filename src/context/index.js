@@ -1,4 +1,5 @@
 import React from 'react';
+import { BaseUrlProvider } from '../network';
 import { appContextProvider, useAppContext } from './appContext.js';
 import { catalogContextProvider, useCatalogContext } from './catalogContext.js';
 import {
@@ -9,8 +10,11 @@ import {
   customerContextProvider,
   useCustomerContext,
 } from './customerContext.js';
+import { BaseStoreProvider } from '../store';
 
 const contextList = [
+  BaseStoreProvider,
+  BaseUrlProvider,
   appContextProvider,
   catalogContextProvider,
   checkoutContextProvider,
