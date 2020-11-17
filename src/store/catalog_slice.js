@@ -47,9 +47,19 @@ const catalogSlice = createSlice({
       state.quote_items = action.payload;
     },
 
-    setHomeProductData(state, action: PayloadAction<{}>) {
+    setHomeProductData(
+      state,
+      action: PayloadAction<{
+        all_ids: Array<string>,
+        homeproductlists: Array<{}>,
+      }>
+    ) {
       state.home_products = action.payload.all_ids;
-      this.addProducts(action.payload.homeproductlists);
+      action.payload.homeproductlists.forEach((product) => {
+        if (product.id) {
+          state.products[product.id] = product;
+        }
+      });
     },
   },
 });

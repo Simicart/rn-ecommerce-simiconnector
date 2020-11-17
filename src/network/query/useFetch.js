@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import md5 from 'md5';
 import axios from 'axios';
-import { baseURL as defaultBaseURL } from '../endpoints.js';
-import { merchant_secret } from '../secret.js';
 import { request } from './data.flow.js';
 
 const combineEndpoint = (endPoint = '', resourceId = '') => {
+  if (!endPoint) {
+    return '/';
+  }
   const x =
     (/^http.*$/.test(endPoint) ? '' : '/') +
     endPoint +
@@ -21,7 +21,7 @@ const isDeeplyEqual = (a, b): boolean => {
 
 const useFetch = (payload: request = {}) => {
   const {
-    baseURL = defaultBaseURL,
+    baseURL = '',
     method = 'GET',
     endPoint = '',
     resourceId = '',
@@ -88,9 +88,7 @@ const useFetch = (payload: request = {}) => {
           'Content-Type': 'application/json',
           //  Unsafe usage of md5
           // secret should not be empty string :)
-          'Authorization':
-            'Bearer ' +
-            (token ?? md5(merchant_secret || 'Please fill in secret')),
+          'Authorization': 'Bearer ' + (token ?? 'Please fill in secret'),
         },
         params: headerParams,
         data: bodyParams,
@@ -100,6 +98,7 @@ const useFetch = (payload: request = {}) => {
       .then((res) => {
         setData(res.data);
         setLoading(false);
+        setError(null);
         console.info('done');
       })
       .catch((err) => {

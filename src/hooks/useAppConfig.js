@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react';
-import { useFetch } from '../network';
-import { config_provider } from '../network/endpoints.js';
+import { useFetchWithProvider } from '../network';
 import { useAppContext } from '../context';
 import { isObjectTruthy } from '../utils/isObjectTruthy.js';
-import { config_provider_secret } from '../network/secret.js';
 
-export const useAppConfig = () => {
+export const useAppConfig = (payload: { endPoint: string, token: string }) => {
   const [appState, appApi] = useAppContext();
   const { app_config } = appState;
   const { setAppConfig } = appApi;
 
-  const { data, error, loading } = useFetch({
-    endPoint: config_provider,
+  const { data, error, loading } = useFetchWithProvider({
+    endPoint: payload.endPoint ?? '',
     cancel: isObjectTruthy(app_config),
-    token: config_provider_secret,
+    token: payload.token ?? '',
   });
 
   useEffect(() => {

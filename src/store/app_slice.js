@@ -8,6 +8,8 @@ const initialState = {
   loadingVectors: [],
   hasUpdate: false,
   stack: 'splash',
+  baseURL: null,
+  baseToken: null,
 };
 
 const appSlice = createSlice({
@@ -44,24 +46,19 @@ const appSlice = createSlice({
       }
     },
 
-    // setGlobalLoading(state) {
-    //   state.loadingVectors.push('global');
-    //   state.isLoading = true;
-    // },
-    //
-    // unsetGlobalLoading(state) {
-    //   state.loadingVectors = state.loadingVectors.filter(vector => vector !== 'global');
-    //   if (state.loadingVectors.length === 0) {
-    //     state.isLoading = false;
-    //   }
-    // },
-
     setUpdateNotification(state, action: PayloadAction<boolean>) {
       state.hasUpdate = action.payload;
     },
 
     setRouteName(state, action: PayloadAction<boolean>) {
       state.stack = action.payload;
+    },
+
+    setBaseURL(state, action: PayloadAction<string>) {
+      state.baseURL = action.payload;
+    },
+    setBaseToken(state, action: PayloadAction<string>) {
+      state.baseToken = action.payload;
     },
   },
 });
@@ -75,6 +72,8 @@ export const {
   addLoadingVector,
   removeLoadingVector,
   setRouteName,
+  setBaseURL,
+  setBaseToken,
 } = appSlice.actions;
 
 export const setGlobalLoading = () => (dispatch) => {
@@ -86,8 +85,6 @@ export const unsetGlobalLoading = () => (dispatch) => {
 };
 
 export const appReducer = appSlice.reducer;
-// setGlobalLoading,
-// unsetGlobalLoading
 
 export default {
   ...appSlice.actions,

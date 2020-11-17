@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { I18nManager, Platform, Dimensions } from 'react-native';
-import { TestGlobalLoading } from '../src/screen/splash/test';
+import { TestGlobalLoading } from '../src/screen/test';
 
 import StackRoute from './stack';
 import DrawerContent from './DrawerContent';

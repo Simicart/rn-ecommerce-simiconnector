@@ -1,29 +1,29 @@
 import { useEffect } from 'react';
-import { useFetch } from '../network';
+import { useFetchWithProvider } from '../network';
 import { useCatalogContext } from '../context';
 import { isObjectTruthy } from '../utils/isObjectTruthy.js';
-import { homeProducts as homeProductEndpoint } from '../network/endpoints.js';
 
-export const useProduct = () => {
+export const useProduct = (payload: { endPoint: string }) => {
   const [catalogState, catalogApi] = useCatalogContext();
-  const { home_products } = catalogState;
-  const { setHomeProductData } = catalogApi;
+  const { products } = catalogState;
+  const { addProducts } = catalogApi;
 
-  const { data, loading, error } = useFetch({
-    endPoint: homeProductEndpoint,
-    cancel: isObjectTruthy(home_products),
+  const { data, loading, error } = useFetchWithProvider({
+    endPoint: payload.endPoint ?? '',
+    cancel: isObjectTruthy(products),
   });
 
   useEffect(() => {
     if (isObjectTruthy(data)) {
-      setHomeProductData(data);
+      // console.log(data);
+      addProducts(data);
     }
-  }, [data, setHomeProductData]);
+  }, [data, addProducts]);
 
   return {
-    data: home_products ?? {},
+    data: products ?? {},
     loading: loading,
     error: error,
-    setHomeProductData: setHomeProductData,
+    setHomeProductData: addProducts,
   };
 };
