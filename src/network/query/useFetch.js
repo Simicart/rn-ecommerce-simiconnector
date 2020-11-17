@@ -89,6 +89,7 @@ const useFetch = (payload: request = {}) => {
           //  Unsafe usage of md5
           // secret should not be empty string :)
           'Authorization': 'Bearer ' + (token ?? 'Please fill in secret'),
+          ...currentHeaders,
         },
         params: headerParams,
         data: bodyParams,
