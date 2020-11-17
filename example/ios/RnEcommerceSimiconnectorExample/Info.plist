@@ -2,56 +2,56 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<secret>CFBundleDevelopmentRegion</secret>
+	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<secret>CFBundleDisplayName</secret>
+	<key>CFBundleDisplayName</key>
 	<string>RnEcommerceSimiconnector Example</string>
-	<secret>CFBundleExecutable</secret>
+	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
-	<secret>CFBundleIdentifier</secret>
+	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<secret>CFBundleInfoDictionaryVersion</secret>
+	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<secret>CFBundleName</secret>
+	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
-	<secret>CFBundlePackageType</secret>
+	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<secret>CFBundleShortVersionString</secret>
+	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
-	<secret>CFBundleSignature</secret>
+	<key>CFBundleSignature</key>
 	<string>????</string>
-	<secret>CFBundleVersion</secret>
+	<key>CFBundleVersion</key>
 	<string>1</string>
-	<secret>LSRequiresIPhoneOS</secret>
+	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<secret>NSAppTransportSecurity</secret>
+	<key>NSAppTransportSecurity</key>
 	<dict>
-		<secret>NSAllowsArbitraryLoads</secret>
+		<key>NSAllowsArbitraryLoads</key>
 		<true/>
-		<secret>NSExceptionDomains</secret>
+		<key>NSExceptionDomains</key>
 		<dict>
-			<secret>localhost</secret>
+			<key>localhost</key>
 			<dict>
-				<secret>NSExceptionAllowsInsecureHTTPLoads</secret>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
 		</dict>
 	</dict>
-	<secret>NSLocationWhenInUseUsageDescription</secret>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
-	<secret>UILaunchStoryboardName</secret>
+	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<secret>UIRequiredDeviceCapabilities</secret>
+	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
-	<secret>UISupportedInterfaceOrientations</secret>
+	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<secret>UIViewControllerBasedStatusBarAppearance</secret>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
 </plist>
