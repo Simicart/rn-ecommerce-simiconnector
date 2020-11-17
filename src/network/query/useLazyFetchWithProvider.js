@@ -1,18 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
 import { useFetchWithProvider } from './useFetchWithProvider.js';
 
 const useLazyFetchWithProvider = (props) => {
-  const [shouldRequest, setShouldRequest] = useState(false);
-
   const fetch_object = useFetchWithProvider({
     ...props,
-    skip: !shouldRequest,
+    skip: true,
   });
 
-  const makeRequest = useCallback(() => {
-    setShouldRequest(true);
-  }, []);
-
+  const { refetch: makeRequest } = fetch_object;
   return [makeRequest, fetch_object];
 };
 

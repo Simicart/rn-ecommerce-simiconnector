@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
 import axios from 'axios';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { request } from './data.flow.js';
 
 const combineEndpoint = (endPoint = '', resourceId = '') => {
@@ -74,12 +74,12 @@ const useFetch = (payload: request = {}) => {
     source.cancel('_request_cancelled');
   }, [resourceId, headerParams, bodyParams, baseURL, endPoint]);
 
-  const fetchData = useCallback(() => {
+  const fetchData = useCallback(async () => {
     setData(null);
     setError(null);
     setLoading(true);
 
-    axios
+    return axios
       .request({
         method: method,
         baseURL: baseURL,
@@ -88,7 +88,7 @@ const useFetch = (payload: request = {}) => {
           'Content-Type': 'application/json',
           //  Unsafe usage of md5
           // secret should not be empty string :)
-          'Authorization': 'Bearer ' + (token ?? 'Please fill in secret'),
+          'Authorization': 'Bearer ' + (token ?? 'Please fill in secret 🔑'),
           ...currentHeaders,
         },
         params: headerParams,
@@ -100,7 +100,11 @@ const useFetch = (payload: request = {}) => {
         setData(res.data);
         setLoading(false);
         setError(null);
-        console.info('done');
+        console.info(`request status: ${res.status} --> ${res.statusText} 🔥`);
+
+        return {
+          data: res.data,
+        };
       })
       .catch((err) => {
         if (err.message === '_request_cancelled') {
@@ -108,27 +112,38 @@ const useFetch = (payload: request = {}) => {
         } else {
           setError(err);
           setLoading(false);
-          console.info('done with error');
+          console.info(`done with error: ${err.toString()} 🌧️`);
           console.info(err);
+
+          return {
+            error: err,
+          };
         }
       });
   }, [resourceId, headerParams, bodyParams, baseURL, endPoint]);
 
-  const refetch = () => {
+  const refetch = async () => {
     console.info('re fetched');
     if (isLoading) {
-      source.cancel('Re-fetched');
-
+      try {
+        source.cancel('Re-fetched');
+      } catch (e) {
+        console.info(e);
+      }
       // no need to change loading, as request is made right after
       // setLoading(false);
     }
-    fetchData();
+    return fetchData();
   };
 
   useEffect(() => {
     if (!skip) {
-      console.info('fetching');
-      fetchData();
+      if (baseURL) {
+        console.info('fetching');
+        fetchData();
+      } else {
+        console.info('currently request with no url ☂️');
+      }
     }
   }, [fetchData, skip]);
 

@@ -2,17 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 import { useFetch } from './useFetch.js';
 
 const useLazyFetch = (props) => {
-  const [shouldRequest, setShouldRequest] = useState(false);
-
   const fetch_object = useFetch({
     ...props,
-    skip: !shouldRequest,
+    skip: true,
   });
 
-  const makeRequest = useCallback(() => {
-    setShouldRequest(true);
-  }, []);
-
+  const { refetch: makeRequest } = fetch_object;
   return [makeRequest, fetch_object];
 };
 
