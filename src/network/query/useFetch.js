@@ -25,12 +25,13 @@ const useFetch = (payload: request = {}) => {
     method = 'GET',
     endPoint = '',
     resourceId = '',
-    initialGetParams = {},
-    initialBodyParams = {},
+    initialGetParams = undefined,
+    initialBodyParams = undefined,
     headers = {},
     timeout = 5000,
     skip = false,
     token = null,
+    cancel = false,
   } = payload;
 
   const [data, setData] = useState(null);
