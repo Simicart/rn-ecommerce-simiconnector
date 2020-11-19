@@ -12,6 +12,7 @@ export {
   useCatalogContext,
   useCheckoutContext,
   useCustomerContext,
+  useCartContext,
 } from './context/index.js';
 
 export {

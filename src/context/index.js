@@ -1,6 +1,7 @@
 import React from 'react';
 import { BaseUrlProvider } from '../network';
 import { appContextProvider, useAppContext } from './appContext.js';
+import { cartContextProvider, useCartContext } from './cartContext.js';
 import { catalogContextProvider, useCatalogContext } from './catalogContext.js';
 import {
   checkoutContextProvider,
@@ -19,6 +20,7 @@ const contextList = [
   catalogContextProvider,
   checkoutContextProvider,
   customerContextProvider,
+  cartContextProvider,
 ];
 
 const MagicProvider = (props) => {
@@ -35,4 +37,5 @@ export {
   useCheckoutContext,
   useCatalogContext,
   useAppContext,
+  useCartContext,
 };
