@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Button, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Button, ScrollView, Text, View } from 'react-native';
 import {
   useAppContext,
   useFetch,
@@ -21,22 +21,49 @@ function TestGlobalLoading(props) {
   const { setGlobalLoading, unsetGlobalLoading } = appApi;
   const { baseURL } = appState;
 
+  const [id, setId] = useState(1);
+
   // const {data, loading, error} = useFetch({
   //   baseURL: baseURL,
   //   endPoint: products_endpoint,
   //   token: '123'
   // });
 
+  // const {data, loading, error} = useFetch({
+  //   endPoint: 'https://jsonplaceholder.typicode.com/posts',
+  //   initialGetParams: {
+  //     id: id
+  //   }
+  // });
+
   // const {data, loading, error} = useFetchWithProvider({
   //   endPoint: products_endpoint,
   // });
 
+  // fetch('https://jsonplaceholder.typicode.com/posts?userId=1').
+  //     then(response => response.json()).
+  //     then(json => console.log(json));
+  //
+
   const [_request, { data, loading, error }] = useLazyFetchWithProvider({
-    endPoint: products_endpoint,
+    endPoint: 'https://jsonplaceholder.typicode.com/posts',
+    initialGetParams: {
+      id: id,
+    },
   });
+
+  // const [_request, { data, loading, error }] = useLazyFetchWithProvider({
+  //   endPoint: products_endpoint,
+  // });
+
   const request = async () => {
-    console.log(await _request());
+    return await _request();
   };
+
+  useEffect(() => {
+    console.log('id ' + id);
+    request().then((x) => console.log(x));
+  }, [id]);
 
   //
   // const {data, loading, error} = useProduct({
@@ -50,15 +77,22 @@ function TestGlobalLoading(props) {
   // });
 
   return (
-    <View>
+    <ScrollView>
       <Text>Something rendered</Text>
-      <Text>{baseURL ?? 'oh no'}</Text>
-      <Text>{data && !loading && JSON.stringify(data)}</Text>
 
       <Button title={'start'} onPress={setGlobalLoading} />
       <Button title={'remove'} onPress={unsetGlobalLoading} />
       <Button title={'request'} onPress={request} />
-    </View>
+
+      <Button
+        title={id.toString()}
+        onPress={() => {
+          setId((prevState) => prevState + 1);
+        }}
+      />
+
+      <Text>{data && !loading && JSON.stringify(data, null, 2)}</Text>
+    </ScrollView>
   );
 }
 
