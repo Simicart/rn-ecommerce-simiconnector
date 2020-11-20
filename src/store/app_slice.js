@@ -33,16 +33,20 @@ const appSlice = createSlice({
     },
 
     addLoadingVector(state, action: PayloadAction<string>) {
-      state.loadingVectors.push(action.payload);
-      state.isLoading = true;
+      if (state.loadingVectors.indexOf(action.payload) === -1) {
+        state.loadingVectors.push(action.payload);
+        state.isLoading = true;
+      }
     },
 
     removeLoadingVector(state, action: PayloadAction<string>) {
-      state.loadingVectors = state.loadingVectors.filter(
-        (vector) => vector !== action.payload
-      );
-      if (state.loadingVectors.length === 0) {
-        state.isLoading = false;
+      if (state.loadingVectors.indexOf(action.payload) !== -1) {
+        state.loadingVectors = state.loadingVectors.filter(
+          (vector) => vector !== action.payload
+        );
+        if (state.loadingVectors.length === 0) {
+          state.isLoading = false;
+        }
       }
     },
 

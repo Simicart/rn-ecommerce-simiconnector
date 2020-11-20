@@ -10,7 +10,7 @@ const RedundantGlobalLoading = (props) => {
   const { unsetGlobalLoading } = appApi;
 
   useEffect(() => {
-    if (loadingVectors.filter((x) => x === 'global').length > 0) {
+    if (loadingVectors.filter((x) => /.*_global/.test(x)).length > 0) {
       setVisible(true);
     } else {
       setVisible(false);

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { removeLoadingVector } from './app_slice.js';
 
 const initialState = {
   products: {},
@@ -7,6 +8,7 @@ const initialState = {
   quote_items: {},
   home_products: [],
   rootCategoryId: '2',
+  home: {},
 };
 
 // Suppose data shape stay the same
@@ -71,7 +73,13 @@ export const {
   setHomeProductData,
   setQuoteItems,
   setRootCategoryId,
+  setHome,
+  retrieveProductsFromIds,
 } = catalogSlice.actions;
+
+export const getCategoryProduct = (category_id: string) => (dispatch) => {
+  dispatch(removeLoadingVector('global'));
+};
 
 export default catalogSlice.actions;
 export const catalogReducer = catalogSlice.reducer;

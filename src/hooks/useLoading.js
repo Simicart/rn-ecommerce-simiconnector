@@ -18,7 +18,6 @@ export const useLoading = () => {
     loading: isLoading,
     loadingType: loadingType,
     loadingVectors: loadingVectors,
-
     setLoading: setLoading,
     setLoadingType: setLoadingType,
     addLoadingVector: addLoadingVector,

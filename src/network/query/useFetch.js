@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { isDeeplyEqual } from '../../utils/isObjectDeeplyEqual.js';
 import { request } from './data.flow.js';
 
 const combineEndpoint = (endPoint = '', resourceId = '') => {
@@ -13,10 +14,6 @@ const combineEndpoint = (endPoint = '', resourceId = '') => {
     resourceId;
   console.info(`request with ${result}`);
   return result;
-};
-
-const isDeeplyEqual = (a, b): boolean => {
-  return JSON.stringify(a) === JSON.stringify(b);
 };
 
 /***
