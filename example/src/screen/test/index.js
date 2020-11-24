@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Button, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Button,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {
   useAppContext,
   useFetch,
@@ -9,11 +16,9 @@ import {
   useFetchWithProvider,
   useLazyFetchWithProvider,
 } from 'rn-ecommerce-simiconnector';
-import type { looseFieldData } from '../../../../src/component/form/GeneralizedForm.js';
-import {
-  fieldType,
-  GeneralizedForm,
-} from '../../../../src/component/form/GeneralizedForm.js';
+import type { looseFieldData } from '../../../../src/component/form/data.flow.js';
+import { fieldType } from '../../../../src/component/form/fieldType.js';
+import { GeneralizedForm } from '../../../../src/component/form/GeneralizedForm.js';
 import * as yup from 'yup';
 import { useCategory } from '../../../../src/hooks/useCategory.js';
 
@@ -113,6 +118,15 @@ function TestGlobalLoading(props) {
       inputTitle: 'welcome',
       initialValue: 'hello there',
     },
+    {
+      inputKey: 'hello',
+      CustomElement: Button,
+      params: {
+        title: 'A title',
+        onPress: () => console.log(1),
+      },
+      optOut: true,
+    },
   ];
 
   const validationObject = yup.object().shape({
@@ -135,8 +149,8 @@ function TestGlobalLoading(props) {
       <Text>Something rendered</Text>
       <GeneralizedForm
         formShape={formShape}
-        onSubmit={onSubmit}
-        SubmitButton={MagicButton}
+        // onSubmit={onSubmit}
+        // SubmitButton={MagicButton}
       />
       <Text>Something rendered</Text>
 

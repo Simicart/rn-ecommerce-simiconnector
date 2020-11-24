@@ -1,5 +1,5 @@
 //8---> 'a75TossC'
-export const makeRandomString = (length?: number): string => {
+export const makeRandomString = (length) => {
   let result = '';
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_';
