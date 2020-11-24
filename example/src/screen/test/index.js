@@ -15,10 +15,13 @@ import {
   useLazyFetch,
   useFetchWithProvider,
   useLazyFetchWithProvider,
+  GeneralizedForm,
+  fieldType,
 } from 'rn-ecommerce-simiconnector';
-import type { looseFieldData } from '../../../../src/component/form/data.flow.js';
-import { fieldType } from '../../../../src/component/form/fieldType.js';
-import { GeneralizedForm } from '../../../../src/component/form/GeneralizedForm.js';
+import type { looseFieldData } from 'rn-ecommerce-simiconnector';
+// import type { looseFieldData } from '../../../../src/component/form/data.flow.js';
+// import { fieldType } from '../../../../src/component/form/fieldType.js';
+// import { GeneralizedForm } from '../../../../src/component/form/GeneralizedForm.js';
 import * as yup from 'yup';
 import { useCategory } from '../../../../src/hooks/useCategory.js';
 
@@ -130,7 +133,7 @@ function TestGlobalLoading(props) {
   ];
 
   const validationObject = yup.object().shape({
-    hello: yup.string().test((value) => value.length > 20),
+    hello: yup.string().test((value) => value?.length > 20),
   });
 
   const onSubmit = (x) => console.log(x);
@@ -149,8 +152,9 @@ function TestGlobalLoading(props) {
       <Text>Something rendered</Text>
       <GeneralizedForm
         formShape={formShape}
-        // onSubmit={onSubmit}
-        // SubmitButton={MagicButton}
+        onSubmit={onSubmit}
+        validationObject={validationObject}
+        SubmitButton={MagicButton}
       />
       <Text>Something rendered</Text>
 

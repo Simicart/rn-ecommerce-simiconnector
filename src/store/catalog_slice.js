@@ -63,6 +63,9 @@ const catalogSlice = createSlice({
         }
       });
     },
+    setHome(state, action: PayloadAction<{}>) {
+      state.home = action.payload;
+    },
   },
 });
 

@@ -27,3 +27,4 @@ export {
 
 export { RedundantGlobalLoading } from './component/index.js';
 export { useFetchWithProvider } from './network/index.js';
+export * from './component/index.js';

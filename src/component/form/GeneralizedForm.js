@@ -1,6 +1,6 @@
 import { Formik, FormikProps, FormikValues } from 'formik';
 import React, { ReactElement, useCallback, useMemo, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { Keyboard, ScrollView, View } from 'react-native';
 import * as yup from 'yup';
 import md5 from 'md5';
 
@@ -76,6 +76,7 @@ export const GeneralizedForm = (props: FormProps) => {
         setFocusIndex(fieldNames[keyIndex + 1]);
       } else {
         setFocusIndex(null);
+        Keyboard.dismiss();
       }
     },
     [fieldNames]

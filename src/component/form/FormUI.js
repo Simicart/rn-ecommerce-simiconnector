@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { Text, TextInput } from 'react-native';
+import { BasicText } from './BasicComponents/BasicText.js';
 import type { strictFieldData } from './data.flow.js';
 import { FormikProps, FormikValues } from 'formik';
 import { fieldType } from './fieldType.js';
@@ -54,7 +55,7 @@ const _RenderFormUIClass = (props: RenderProps) => {
     case fieldType.TEXT:
     case fieldType.EMAIL:
       return (
-        <TextInput
+        <BasicText
           key={key}
           inputType={type}
           editable={!isDisabled}
@@ -63,11 +64,12 @@ const _RenderFormUIClass = (props: RenderProps) => {
           value={formik.values[key]}
           returnKeyType={'next'}
           onSubmitEditing={handleSubmitInput}
+          isFocused={isFocused}
         />
       );
     case fieldType.PASSWORD:
       return (
-        <TextInput
+        <BasicText
           key={key}
           inputType={type}
           editable={!isDisabled}
@@ -77,6 +79,7 @@ const _RenderFormUIClass = (props: RenderProps) => {
           secureTextEntry={true}
           returnKeyType={'next'}
           onSubmitEditing={handleSubmitInput}
+          isFocused={isFocused}
         />
       );
 

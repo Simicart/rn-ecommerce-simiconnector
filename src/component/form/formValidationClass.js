@@ -1,17 +1,18 @@
 import * as yup from 'yup';
 import ObjectSchema from 'yup/lib/object.js';
 import type { strictFieldData } from './data.flow.js';
+import { fieldType } from './fieldType.js';
 
 const errorMessageForRequiredField = 'This field is required';
 
 const matchPattern: { [string]: Array<patternErrorBlob> } = {
-  email: [
+  [fieldType.EMAIL]: [
     {
       pattern: /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/,
       message: 'Not a valid email',
     },
   ],
-  password: [
+  [fieldType.PASSWORD]: [
     {
       pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
       message: 'Not a valid password',
