@@ -46,8 +46,9 @@ function AppStack() {
       }
       drawerContent={(props) => <DrawerContent {...props} />}
     >
-      <Drawer.Screen name="Root" component={AppStack} />
+      {/*TODO: Swap Loading And Home this back*/}
       <Drawer.Screen name="Loading" component={TestGlobalLoading} />
+      <Drawer.Screen name="Root" component={AppStack} />
     </Drawer.Navigator>
   );
 

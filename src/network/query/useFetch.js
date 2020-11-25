@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { isDeeplyEqual } from '../../utils/isObjectDeeplyEqual.js';
 import { request } from './data.flow.js';
+import { resolveNetworkStatus } from './resolveNetworkStatus.js';
 
 const combineEndpoint = (endPoint = '', resourceId = '') => {
   if (!endPoint) {
@@ -126,7 +127,8 @@ const useFetch = (payload: request = {}) => {
           setData(res.data);
           setError(null);
           console.info(
-            `request status: ${res.status} --> ${res.statusText} 🔥`
+            `request status: ${res.status} --> ` +
+              `${res.statusText ?? resolveNetworkStatus(res.status)}`
           );
           setLoading(false);
         }
