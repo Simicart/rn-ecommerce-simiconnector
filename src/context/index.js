@@ -32,10 +32,10 @@ const MagicProvider = (props) => {
 };
 
 export {
-  MagicProvider,
   useCustomerContext,
   useCheckoutContext,
   useCatalogContext,
   useAppContext,
   useCartContext,
+  MagicProvider,
 };
