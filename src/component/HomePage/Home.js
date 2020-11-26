@@ -4,12 +4,11 @@ import { ScrollView, Text, View } from 'react-native';
 import { useAppContext } from '../../context';
 import { useHomeLite } from '../../hooks/Home/useHomeLite.js';
 import { home_endpoint } from '../../network/utils/endpoint.js';
-import { isObjectTruthy } from '../../utils/isObjectTruthy.js';
 import { Banner } from './Banner.js';
 import { HomeCategoryDisplay } from './HomeCategoryDisplay.js';
 import { HorizontalProductList } from './HorizontalProductList.js';
 
-const loadingName = 'home';
+const loadingName = 'home_global';
 
 function Home(props: HomeProps) {
   const [, { addLoadingVector, removeLoadingVector }] = useAppContext();

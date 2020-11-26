@@ -2,7 +2,13 @@ import axios from 'axios';
 import { combineEndpoint } from '../utils/combineEndpoint.js';
 import type { request } from './data.flow.js';
 
-export const fetchData = async (payload: request) => {
+/***
+ *
+ * @param payload
+ * @returns {Promise<T | {error: *}>}
+ * This return error, or the whole respond (including status code, status text, data, ....)
+ */
+export const fetchData = async (payload) => {
   const {
     method = 'GET',
     baseURL = '',
@@ -32,11 +38,19 @@ export const fetchData = async (payload: request) => {
       cancelToken: source?.token ?? null,
     })
     .then((res) => {
-      return {
-        data: res,
-      };
+      if (res?.data?.errors) {
+        const errorList = res?.data?.errors;
+        throw errorList?.length > 0
+          ? errorList[0]?.message
+          : `Unexpected Error 😢`;
+      } else {
+        return {
+          data: res,
+        };
+      }
     })
     .catch((err) => {
+      console.info(err.toString());
       return {
         error: err,
       };

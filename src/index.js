@@ -9,3 +9,5 @@ export * from './store/index.js';
 export * from './context/index.js';
 export * from './network/index.js';
 export * from './component/index.js';
+
+export { isObjectTruthy } from './utils/isObjectTruthy';

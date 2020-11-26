@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { fetchData } from '../network/query/fetchData.js';
+import { login_endpoint } from '../network/utils/endpoint.js';
 
 const initialState = {
   isLoggedIn: false,
@@ -66,5 +68,35 @@ export const {
   removeAllOrderHistory,
 } = customerSlice.actions;
 
-export default customerSlice.actions;
+export const logIn = ({ email, password, baseURL, token }) => async (
+  dispatch
+) => {
+  console.log(email);
+  console.log(password);
+  const { data, error } = await fetchData({
+    endPoint: login_endpoint,
+    baseURL: baseURL ?? '',
+    headerParams: {
+      email: email,
+      password: password,
+    },
+    token: token,
+  });
+
+  if (data) {
+    const returnData = {
+      email: email,
+      password: password,
+      hashed_password: data?.data?.customer?.simi_hash ?? '',
+    };
+    dispatch(setLoggedIn(returnData));
+    return returnData;
+  } else if (error) {
+    console.info('Error logging in');
+    return { error: error };
+  }
+};
+
+export const logOut = setLoggedOut;
+export default { ...customerSlice.actions, logIn, logOut };
 export const customerReducer = customerSlice.reducer;

@@ -29,9 +29,9 @@ const useFetch = (payload: request = {}) => {
     initialGetParams = null,
     initialBodyParams = null,
     headers: initialHeader = null,
-    timeout = 10000,
-    skip = false,
+    timeout = 20000,
     token = null,
+    skip = false,
     cancel = false,
   } = payload;
 
@@ -72,6 +72,7 @@ const useFetch = (payload: request = {}) => {
   }, [resourceId, headerParams, bodyParams, baseURL, endPoint]);
 
   const fetchData = useCallback(async () => {
+    console.log(JSON.stringify(headerParams ?? {}));
     setData(null);
     setError(null);
     setLoading(true);
@@ -89,32 +90,15 @@ const useFetch = (payload: request = {}) => {
       source: source,
     })
       .then(({ data: res }) => {
-        if (res.data.error) {
-          const errorList = res.data.errors;
-          setError(errorList);
-          const errorObject =
-            errorList?.length > 1
-              ? errorList[0]
-              : {
-                  code: -16,
-                  message: `Unexpected Error 😢`,
-                };
-          console.info(
-            `Message successfully failed with code: ``${errorObject?.code} --> ${errorObject?.message} 🌧️`
-          );
-          setError(errorObject);
-          setLoading(false);
-        } else {
-          setData(res.data);
-          setError(null);
-          console.info(
-            `request status: ${res.status} --> ` +
-              `${res.statusText ?? resolveNetworkStatus(res.status)}`
-          );
-          setLoading(false);
-        }
+        setData(res?.data);
+        setError(null);
+        console.info(
+          `request status: ${res?.status} --> ` +
+            `${res?.statusText ?? resolveNetworkStatus(res.status)}`
+        );
+        setLoading(false);
         return {
-          data: res.data,
+          data: res?.data,
         };
       })
       .catch(({ error }) => {

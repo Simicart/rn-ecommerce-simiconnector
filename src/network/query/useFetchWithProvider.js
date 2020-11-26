@@ -1,4 +1,4 @@
-import { useAppContext } from '../../context';
+import { useAppContext, useCustomerContext } from '../../context';
 import { useFetch } from './useFetch.js';
 
 /***
@@ -21,10 +21,23 @@ import { useFetch } from './useFetch.js';
 export const useFetchWithProvider = (props) => {
   const [appState] = useAppContext();
   const { baseURL, baseToken } = appState;
+  const [customerState] = useCustomerContext();
+  const { email, password, hashed_password, isLoggedIn } = customerState;
+  const { initialGetParams } = props;
+
+  let requestParams = initialGetParams ?? {};
+  if (isLoggedIn) {
+    requestParams = {
+      email: email,
+      password: hashed_password || password,
+      ...requestParams,
+    };
+  }
 
   return useFetch({
     baseURL: baseURL ?? '',
     token: baseToken ?? '',
-    ...(props ?? {}),
+    ...props,
+    initialGetParams: requestParams,
   });
 };

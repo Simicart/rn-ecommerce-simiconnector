@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as customer_actions from '../store/customer.js';
+import * as customer_actions from '../store/customer_slice.js';
 
 const CustomerContext = createContext();
 
