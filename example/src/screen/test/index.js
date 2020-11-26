@@ -1,24 +1,21 @@
 import React, { useEffect } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import {
-  useAppContext,
-  Banner,
   Home as HomePage,
+  useFetch,
+  useAppContext,
 } from 'rn-ecommerce-simiconnector';
 import type {} from 'rn-ecommerce-simiconnector';
-import {} from './endpoints.js';
-import {} from './secret.js';
 
 function TestGlobalLoading(props) {
+  // const {data} = useFetch({
+  //     endPoint: 'https://louis.pwa-commerce.com/simiconnector/rest/v2/homeproductlists/9'
+  // });
+
   return (
     <ScrollView>
-      <Text>Something rendered</Text>
-      <HomePage
-        endPoint={
-          'https://louis.pwa-commerce.com/simiconnector/rest/v2/homes/lite/'
-        }
-      />
-      <Text>Something rendered</Text>
+      <View style={{ height: 50 }} />
+      <HomePage />
     </ScrollView>
   );
 }

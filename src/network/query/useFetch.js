@@ -2,20 +2,8 @@ import axios from 'axios';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { isDeeplyEqual } from '../../utils/isObjectDeeplyEqual.js';
 import { request } from './data.flow.js';
-import { resolveNetworkStatus } from './resolveNetworkStatus.js';
-
-const combineEndpoint = (endPoint = '', resourceId = '') => {
-  if (!endPoint) {
-    return '/';
-  }
-  const result =
-    (/^http.*$/.test(endPoint) ? '' : '/') +
-    endPoint +
-    (endPoint[endPoint.length - 1] === '/' ? '' : '/') +
-    resourceId;
-  console.info(`request with ${result}`);
-  return result;
-};
+import { resolveNetworkStatus } from '../utils/resolveNetworkStatus.js';
+import { fetchData as _fetch_data } from './fetchData.js';
 
 /***
  *
@@ -87,28 +75,23 @@ const useFetch = (payload: request = {}) => {
     setData(null);
     setError(null);
     setLoading(true);
-    console.log(headerParams);
 
-    return axios
-      .request({
-        method: method,
-        baseURL: baseURL,
-        url: combineEndpoint(endPoint, resourceId),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + (token ?? 'Please fill in secret 🔑'),
-          ...headers,
-        },
-        params: headerParams,
-        data: bodyParams,
-        timeout: timeout,
-        cancelToken: source.token,
-      })
-      .then((res) => {
+    return _fetch_data({
+      method: method,
+      baseURL: baseURL,
+      endPoint: endPoint,
+      resourceId: resourceId,
+      token: token,
+      headers: headers,
+      headerParams: headerParams,
+      bodyParams: bodyParams,
+      timeout: timeout,
+      source: source,
+    })
+      .then(({ data: res }) => {
         if (res.data.error) {
           const errorList = res.data.errors;
           setError(errorList);
-
           const errorObject =
             errorList?.length > 1
               ? errorList[0]
@@ -116,11 +99,9 @@ const useFetch = (payload: request = {}) => {
                   code: -16,
                   message: `Unexpected Error 😢`,
                 };
-
           console.info(
             `Message successfully failed with code: ``${errorObject?.code} --> ${errorObject?.message} 🌧️`
           );
-
           setError(errorObject);
           setLoading(false);
         } else {
@@ -132,22 +113,21 @@ const useFetch = (payload: request = {}) => {
           );
           setLoading(false);
         }
-
         return {
           data: res.data,
         };
       })
-      .catch((err) => {
-        if (err.message === '_request_cancelled') {
+      .catch(({ error }) => {
+        if (error?.message === '_request_cancelled') {
           setLoading(false);
         } else {
-          setError(err);
-          console.info(`done with error: ${err.toString()} 🌧️`);
-          console.info(err);
+          setError(error);
+          console.info(`done with error: ${error?.toString()} 🌧️`);
+          console.info(error);
           setLoading(false);
 
           return {
-            error: err,
+            error: error,
           };
         }
       });
@@ -161,8 +141,6 @@ const useFetch = (payload: request = {}) => {
       } catch (e) {
         console.info(e);
       }
-      // no need to change loading, as request is made right after
-      // setLoading(false);
     }
     return fetchData();
   }, [isLoading, source, fetchData]);

@@ -1,26 +1,12 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import { Text, View, Image, ActivityIndicator } from 'react-native';
 import md5 from 'md5';
 
 function HomeCategoryDisplay(props: HomeCategoryDisplayProps) {
   const { data, loading } = props;
 
   if (loading) {
-    return (
-      <View style={{ height: 140 }}>
-        <ActivityIndicator
-          style={{ flex: 1 }}
-          size={'large'}
-          color={'#bedbbb'}
-        />
-      </View>
-    );
+    return <View style={{ height: 140 }} />;
   }
 
   return (
@@ -32,7 +18,7 @@ function HomeCategoryDisplay(props: HomeCategoryDisplayProps) {
         marginRight: 5,
       }}
     >
-      <Text style={{ fontSize: 20, marginTop: 3, marginBottom: 12 }}>
+      <Text style={{ fontSize: 17, marginTop: 3, marginBottom: 12 }}>
         Category
       </Text>
       <View style={{ flexDirection: 'row' }}>

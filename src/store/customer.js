@@ -4,6 +4,9 @@ const initialState = {
   isLoggedIn: false,
   orderHistory: [],
   addresses: [],
+  email: '',
+  password: '',
+  hashed_password: '',
 };
 
 const customerSlice = createSlice({
@@ -14,40 +17,48 @@ const customerSlice = createSlice({
       state = { ...state, ...action.payload };
     },
 
-    setLogIn(state) {
+    setLoggedIn(
+      state,
+      action: PayloadAction<{
+        email: string,
+        password: string,
+        hashed_password: string,
+      }>
+    ) {
+      state.email = action.payload.email;
+      state.password = action.payload.password;
+      state.hashed_password = action.payload.hashed_password;
       state.isLoggedIn = true;
     },
 
     setLoggedOut(state) {
-      // cart id?
+      state.email = '';
+      state.password = '';
+      state.hashed_password = '';
       state.isLoggedIn = false;
     },
 
     addOrderHistory(state, action: PayloadAction<{}>) {
       state.orderHistory.push(action.payload);
-      //  request to server
     },
 
     removeAllOrderHistory(state) {
       state.orderHistory = [];
-      //  request to server
     },
 
     addAddress(state, action: PayloadAction<{}>) {
       state.addresses.push(action.payload);
-      //  request to server
     },
 
     removeAllAddress(state) {
       state.addresses = [];
-      //  request to server
     },
   },
 });
 
 export const {
   setLoggedOut,
-  setLogIn,
+  setLoggedIn,
   setLotsOfDataFromServer,
   addAddress,
   addOrderHistory,

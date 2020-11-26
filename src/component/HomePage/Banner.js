@@ -34,15 +34,7 @@ function Banner(props: BannerProps) {
   };
 
   if (loading) {
-    return (
-      <View style={{ height: 200 }}>
-        <ActivityIndicator
-          style={{ flex: 1 }}
-          size={'large'}
-          color={'#9f5f80'}
-        />
-      </View>
-    );
+    return <View style={{ height: 200 }} />;
   }
 
   return (

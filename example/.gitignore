@@ -2,3 +2,4 @@ node_modules/
 android/app/build
 android/.gradle
 android/.settings
+ios/Pods/

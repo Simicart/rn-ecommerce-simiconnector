@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -7,13 +7,17 @@ import {
   View,
   Platform,
 } from 'react-native';
-import { useProductList } from '../../hooks/useProductList.js';
+import { useProductList } from '../../hooks/Home/useProductList.js';
 import md5 from 'md5';
+import { useFetchWithProvider } from '../../network';
+import { home_products_endpoint } from '../../network/utils/endpoint.js';
+import { isObjectTruthy } from '../../utils/isObjectTruthy.js';
 
 function _HorizontalProductList(props: HorizontalProductListProps) {
-  const { data, loading } = useProductList({
-    endPoint:
-      'https://louis.pwa-commerce.com/simiconnector/rest/v2/homeproductlists',
+  const isParentLoading = props?.loading ?? false;
+
+  const { data, loading, error } = useProductList({
+    endPoint: home_products_endpoint,
     id: props.id,
   });
 
@@ -27,6 +31,10 @@ function _HorizontalProductList(props: HorizontalProductListProps) {
         />
       </View>
     );
+  }
+
+  if (error) {
+    return <Text>{error.toString()}</Text>;
   }
 
   const product_data: Array<{
@@ -43,17 +51,6 @@ function _HorizontalProductList(props: HorizontalProductListProps) {
         style={{
           marginLeft: 5,
           marginRight: 5,
-          ...Platform.select({
-            ios: {
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.8,
-              shadowRadius: 2,
-            },
-            android: {
-              elevation: 5,
-            },
-          }),
         }}
       >
         <Image
@@ -108,6 +105,7 @@ function _HorizontalProductList(props: HorizontalProductListProps) {
 
 type HorizontalProductListProps = {
   id: string,
+  loading: boolean,
 };
 
 export const HorizontalProductList = React.memo(

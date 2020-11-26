@@ -1,3 +1,3 @@
 export { useAppConfig } from './useAppConfig.js';
-export { useLoading } from './useLoading.js';
+export { useLoading } from './loading/useLoading.js';
 export { useProduct } from './useProduct.js';

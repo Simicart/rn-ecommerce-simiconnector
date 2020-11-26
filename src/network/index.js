@@ -5,7 +5,7 @@ export { useLazyFetchWithProvider } from './query/useLazyFetchWithProvider.js';
 export {
   BaseUrlProvider,
   useBaseURLFromContext,
-} from './query/baseURLProvider.js';
+} from './utils/baseURLProvider.js';
 export {
   useAppConfig,
   useLoading,

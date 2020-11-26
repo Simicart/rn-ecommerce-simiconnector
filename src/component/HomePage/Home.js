@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Button, ScrollView, Text, View } from 'react-native';
+import md5 from 'md5';
+import React, { useEffect } from 'react';
+import { ScrollView, Text, View } from 'react-native';
 import { useAppContext } from '../../context';
-import { useHomeLite } from '../../hooks/useHomeLite.js';
+import { useHomeLite } from '../../hooks/Home/useHomeLite.js';
+import { home_endpoint } from '../../network/utils/endpoint.js';
+import { isObjectTruthy } from '../../utils/isObjectTruthy.js';
 import { Banner } from './Banner.js';
 import { HomeCategoryDisplay } from './HomeCategoryDisplay.js';
 import { HorizontalProductList } from './HorizontalProductList.js';
-import md5 from 'md5';
 
 const loadingName = 'home';
 
 function Home(props: HomeProps) {
-  const [x, setX] = useState(true);
-
   const [, { addLoadingVector, removeLoadingVector }] = useAppContext();
-  const endPoint = props?.endPoint ?? '';
-
-  const { data, error, loading } = useHomeLite({
-    endPoint: endPoint,
+  const { data, loading } = useHomeLite({
+    endPoint: home_endpoint,
   });
 
   useEffect(() => {
@@ -24,7 +22,6 @@ function Home(props: HomeProps) {
       addLoadingVector(loadingName);
     } else {
       removeLoadingVector(loadingName);
-      // console.log(JSON.stringify(data))
     }
   }, [loading]);
 
@@ -63,19 +60,20 @@ function Home(props: HomeProps) {
   return (
     <ScrollView>
       <Banner data={banner_data} loading={loading} />
+      <View style={{ height: 10 }} />
       <HomeCategoryDisplay data={category_data} loading={loading} />
+      <View style={{ height: 10 }} />
       {product_list_data.map((product_list) => (
         <HorizontalProductList
           key={md5(JSON.stringify(product_list))}
           id={product_list.id}
+          loading={loading}
         />
       ))}
     </ScrollView>
   );
 }
 
-type HomeProps = {
-  endPoint: string,
-};
+type HomeProps = {};
 
 export { Home };

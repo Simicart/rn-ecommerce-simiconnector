@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useFetchWithProvider } from '../network';
-import { isObjectTruthy } from '../utils/isObjectTruthy.js';
+import { useFetchWithProvider } from '../../network';
+import { isObjectTruthy } from '../../utils/isObjectTruthy.js';
 
 export const useProductList = (payload: { endPoint: string, id?: string }) => {
   const { endPoint = '', id = '' } = payload;
@@ -10,14 +10,6 @@ export const useProductList = (payload: { endPoint: string, id?: string }) => {
     resourceId: id,
     cancel: isObjectTruthy(data),
   });
-
-  useEffect(() => {
-    // if (isObjectTruthy(data)) {
-    //     // console.log(data);
-    //     addProducts(data);
-    // }
-    console.log('ok');
-  }, [data]);
 
   return {
     data: data ?? {},

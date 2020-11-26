@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useFetchWithProvider } from '../network';
-import { useCatalogContext } from '../context';
-import { isObjectTruthy } from '../utils/isObjectTruthy.js';
+import { useFetchWithProvider } from '../../network';
+import { useCatalogContext } from '../../context';
+import { isObjectTruthy } from '../../utils/isObjectTruthy.js';
 
 export const useHomeLite = (payload: { endPoint: string }) => {
   const [{ home }, { setHome }] = useCatalogContext();
