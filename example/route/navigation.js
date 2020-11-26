@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { I18nManager, Platform, Dimensions } from 'react-native';
+import { useAppContext } from 'rn-ecommerce-simiconnector';
 import { TestGlobalLoading } from '../src/screen/test';
 
 import StackRoute from './stack';
@@ -12,6 +13,8 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function AppStack() {
+  const [{ stack }] = useAppContext();
+
   function AppStack() {
     let screens = [];
     for (const key in StackRoute) {
@@ -62,7 +65,6 @@ function AppStack() {
   );
 
   let navigatorSelection = null;
-  const stack = 'app';
   switch (stack) {
     case 'splash':
       navigatorSelection = splashStack;

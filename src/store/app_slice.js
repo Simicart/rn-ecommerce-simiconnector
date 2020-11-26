@@ -54,7 +54,7 @@ const appSlice = createSlice({
       state.hasUpdate = action.payload;
     },
 
-    setRouteName(state, action: PayloadAction<boolean>) {
+    changeStack(state, action: PayloadAction<boolean>) {
       state.stack = action.payload;
     },
 
@@ -75,7 +75,7 @@ export const {
   setUpdateNotification,
   addLoadingVector,
   removeLoadingVector,
-  setRouteName,
+  changeStack,
   setBaseURL,
   setBaseToken,
 } = appSlice.actions;
