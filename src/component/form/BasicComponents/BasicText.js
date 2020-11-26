@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { TextInput, View } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 import { fieldType } from '../fieldType.js';
 
 function BasicText(props) {
@@ -29,14 +29,14 @@ function BasicText(props) {
 
   useEffect(() => {
     if (isFocused && inputRef && editable) {
-      inputRef.focus();
+      // inputRef.focus();
     }
   }, [isFocused]);
 
   return (
     <View>
       <TextInput
-        ref={inputRef}
+        ref={(input) => (inputRef.current = input)}
         onBlur={onBlur}
         onSubmitEditing={onSubmitEditing}
         onChangeText={onChangeText}
@@ -46,6 +46,7 @@ function BasicText(props) {
         keyboardType={resolveInputType(type)}
         secureTextEntry={secureTextEntry}
       />
+      <Text>{props.error ?? 'No error'}</Text>
     </View>
   );
 }

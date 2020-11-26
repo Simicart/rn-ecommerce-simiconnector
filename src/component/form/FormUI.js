@@ -65,6 +65,7 @@ const _RenderFormUIClass = (props: RenderProps) => {
           returnKeyType={'next'}
           onSubmitEditing={handleSubmitInput}
           isFocused={isFocused}
+          error={formik.errors[key]}
         />
       );
     case fieldType.PASSWORD:

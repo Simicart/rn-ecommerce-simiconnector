@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import * as yup from 'yup';
 import { Button, ScrollView, Text, View } from 'react-native';
 import {
   Home as HomePage,
@@ -8,34 +9,47 @@ import {
   useAppContext,
   useCustomerContext,
   useLazyFetch,
+  GeneralizedForm,
+  fieldType,
 } from 'rn-ecommerce-simiconnector';
 import type {} from 'rn-ecommerce-simiconnector';
 
 function TestGlobalLoading(props) {
-  const [
-    { email, password, hashed_password },
-    { logIn, logOut },
-  ] = useCustomerContext();
-
-  const [request, { data }] = useLazyFetchWithProvider({
-    endPoint:
-      'https://louis.pwa-commerce.com/simiconnector/rest/v2/homeproductlists/9',
-    initialGetParams: {
-      x: '1',
+  const data = [
+    {
+      inputKey: 'abc',
+      inputType: fieldType.EMAIL,
+      inputTitle: 'SHow it',
     },
+    {
+      inputKey: 'abc1',
+      inputType: fieldType.TEXT,
+      inputTitle: 'SHow it',
+    },
+    {
+      inputKey: 'abc2',
+      inputType: fieldType.TEXT,
+      inputTitle: 'SHow it',
+    },
+  ];
+
+  const validationSchema = yup.object().shape({
+    abc1: yup.string().test('f', 'f', (value) => {
+      return value?.length > 5;
+    }),
   });
+  // validationSchema.isValid({abc: 'asdasdsadsa'}).then(x=> console.log(x))
+
+  // const abc = FormValidationClass.getValidationSchema(data, validationSchema);
+  // console.log(abc.describe())
+
+  // abc.isValid({'abc': 'saddS@dfs.com', abc1: 'sd', abc2: ''}).then(x => console.log(x));
 
   return (
     <ScrollView>
-      <View style={{ height: 90 }} />
-      <Text style={{ fontSize: 50 }}>
-        {JSON.stringify(data ?? {}).slice(0, 100) ?? 'such empty'}
-      </Text>
-      <Button title={'req'} onPress={request} />
-      <Button title={'out'} onPress={logOut} />
-      {/*<Text style={{fontSize: 50}}>{password ?? 'such empty'}</Text>*/}
-      {/*<Text style={{fontSize: 50}}>{hashed_password ?? 'such empty'}</Text>*/}
-      {/*<HomePage/>*/}
+      <View style={{ height: 50 }} />
+      <Text>Something</Text>
+      <GeneralizedForm formShape={data} validationObject={validationSchema} />
     </ScrollView>
   );
 }

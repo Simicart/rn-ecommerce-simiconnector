@@ -50,6 +50,7 @@ class DataNormalizeClass {
   static serialNormalizeFields = (
     data: Array<looseFieldData>
   ): Array<strictFieldData> => {
+    // console.log(JSON.stringify(x, null, 2));
     return data
       .map((fieldData) =>
         this.normalizeFormFieldData(
@@ -66,11 +67,12 @@ class DataNormalizeClass {
   ): { [string]: string } => {
     const returnObject = {};
     data.forEach((field) => {
+      console.log(JSON.stringify(field, null, 2));
       if (field.optOut === true) {
         return;
       }
       if (shouldUseInitialData) {
-        returnObject.key = field?.initialValue ?? '';
+        returnObject[field.key] = field?.initialValue ?? '';
       } else {
         returnObject[field.key] = '';
       }

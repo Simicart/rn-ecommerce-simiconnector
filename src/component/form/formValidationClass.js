@@ -15,6 +15,8 @@ const matchPattern: { [string]: Array<patternErrorBlob> } = {
   [fieldType.PASSWORD]: [
     {
       pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+      // pattern: /^.*$/,
+
       message: 'Not a valid password',
     },
   ],
@@ -22,7 +24,7 @@ const matchPattern: { [string]: Array<patternErrorBlob> } = {
 
 class FormValidationClass {
   static getFieldValidationObject = (fieldData: strictFieldData): YupObject => {
-    const { key, isRequired } = fieldData;
+    const { key, type, isRequired } = fieldData;
     const object = {
       [key]: yup.string().ensure(),
     };
@@ -37,18 +39,18 @@ class FormValidationClass {
     }
     //match input type to correct pattern (if exists)
     //ex: inputKey = 'email' ---> get match_pattern(s) of email
-    const match_pattern: Array<patternErrorBlob> = matchPattern[key];
+    const match_pattern = matchPattern[type];
+    console.log(match_pattern);
     if (match_pattern) {
       match_pattern.forEach((slug) => {
         if (isRequired) {
           object[key] = object[key].matches(slug.pattern, slug.message);
         } else {
-          //if optional, can be no fill or fill in correct format
+          // //   if optional, can be no fill or fill in correct format
           object[key] = object[key].test(
             'key is empty or correctly formatted',
             slug.message,
-            (value: ?string) =>
-              value === '' || value === null || slug.pattern.test(value)
+            (value: string) => value === '' || slug.pattern.test(value)
           );
         }
       });
@@ -69,18 +71,19 @@ class FormValidationClass {
   };
 
   static getCustomValidationObject = (
-    customValidation: ?YupObject
+    customValidation = yup.object()
   ): YupObject => {
-    return customValidation ?? yup.object();
+    return customValidation;
   };
 
   static getValidationSchema = (
     data: Array<strictFieldData>,
     customValidation: ?YupObject
   ): YupObject => {
-    return this.getValidationObject(data).concat(
-      this.getCustomValidationObject(customValidation)
-    );
+    if (customValidation) {
+      return this.getCustomValidationObject(customValidation);
+    }
+    return this.getValidationObject(data);
   };
 }
 
