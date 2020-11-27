@@ -34,7 +34,7 @@ function TestGlobalLoading(props) {
   ];
 
   const validationSchema = yup.object().shape({
-    abc1: yup.string().test('f', 'f', (value) => {
+    abc1: yup.string().test('oh no', 'oh no', (value) => {
       return value?.length > 5;
     }),
   });

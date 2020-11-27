@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const DefaultSubmitButton = (props: BasicButtonProps) => {
-  if (props.disable) {
+  if (!props.valid) {
     return <Text>Oh no</Text>;
   }
   return (
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 type BasicButtonProps = {
   title: string,
   onPress: () => any,
-  disable: boolean,
+  valid: boolean,
 };
 
 export { DefaultSubmitButton };

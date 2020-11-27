@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { fieldType } from '../fieldType.js';
 
 function BasicText(props) {
-  const inputRef = useRef(null);
+  const [inputRef, setInputRef] = useState(null);
   const {
     onBlur,
     onChangeText,
@@ -36,7 +36,7 @@ function BasicText(props) {
   return (
     <View>
       <TextInput
-        ref={(input) => (inputRef.current = input)}
+        ref={(input) => setInputRef(input)}
         onBlur={onBlur}
         onSubmitEditing={onSubmitEditing}
         onChangeText={onChangeText}

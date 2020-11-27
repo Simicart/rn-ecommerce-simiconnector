@@ -94,6 +94,7 @@ export const GeneralizedForm = (props: FormProps) => {
           console.log(JSON.stringify(formik.errors, null, 2));
 
           console.log(JSON.stringify(formik.values, null, 2));
+          console.log(formik.isValid);
           return (
             <View>
               {normalizedFieldData.map((data: strictFieldData) => {
@@ -110,7 +111,7 @@ export const GeneralizedForm = (props: FormProps) => {
               <SubmitButton
                 title={'Submit'}
                 onPress={formik.handleSubmit}
-                disable={!formik.isValid}
+                valid={formik.isValid}
               />
             </View>
           );
@@ -128,6 +129,7 @@ type FormProps = {
   SubmitButton?: ReactElement<{
     title: string,
     onPress: (submitValues: {}) => any,
+    valid: boolean,
   }>,
   onSubmit?: (submitValues: {}) => any,
 };
