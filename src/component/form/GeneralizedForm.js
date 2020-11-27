@@ -87,7 +87,6 @@ export const GeneralizedForm = (props: FormProps) => {
         onSubmit={submitHandler}
       >
         {(formik: FormikProps<FormikValues>) => {
-          // console.log(JSON.stringify(formik.isValid, null, 2));
           console.log(JSON.stringify(formik.errors, null, 2));
           console.log(JSON.stringify(formik.values, null, 2));
           console.log(formik.isValid);

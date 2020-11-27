@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import StringSchema from 'yup/lib/string.js';
 import ObjectSchema from 'yup/lib/object.js';
 import type { strictFieldData } from './data.flow.js';
 import { fieldType } from './fieldType.js';
@@ -23,10 +24,13 @@ const matchPattern: { [string]: Array<patternErrorBlob> } = {
 };
 
 class FormValidationClass {
-  static getFieldValidationObject = (fieldData: strictFieldData): YupObject => {
+  static getObjectOfDefaultFieldValidation = (
+    fieldData: strictFieldData
+  ): { [string]: StringSchema } => {
+    console.log('re run');
     const { key, type, isRequired } = fieldData;
     const object = {
-      [key]: yup.string().ensure(),
+      [key]: yup.string(),
     };
     if (isRequired) {
       object[key] = object[key]
@@ -40,7 +44,7 @@ class FormValidationClass {
     //match input type to correct pattern (if exists)
     //ex: inputKey = 'email' ---> get match_pattern(s) of email
     const match_pattern = matchPattern[type];
-    console.log(match_pattern);
+
     if (match_pattern) {
       match_pattern.forEach((slug) => {
         if (isRequired) {
@@ -55,38 +59,52 @@ class FormValidationClass {
         }
       });
     }
-    return yup.object().shape(object);
+    return object;
   };
 
-  static getValidationObject = (data: Array<strictFieldData>): YupObject => {
-    let validationSchema = yup.object();
+  static getFullObjectOfDefaultValidation = (
+    data: Array<strictFieldData>
+  ): { [string]: StringSchema } => {
+    let objectOfValidation = {};
     data.forEach((field) => {
       if (!field.optOut) {
-        validationSchema = validationSchema.concat(
-          this.getFieldValidationObject(field)
+        Object.assign(
+          objectOfValidation,
+          this.getObjectOfDefaultFieldValidation(field)
         );
       }
     });
-    return validationSchema;
+    return objectOfValidation;
   };
 
-  static getCustomValidationObject = (
-    customValidation = yup.object()
-  ): YupObject => {
+  static getObjectOfCustomValidation = (
+    customValidation = {}
+  ): { [string]: StringSchema } => {
     return customValidation;
   };
 
   static getValidationSchema = (
     data: Array<strictFieldData>,
-    customValidation: ?YupObject
+    customValidation: ?{ [string]: StringSchema }
   ): YupObject => {
     // return this.getCustomValidationObject(customValidation)
     //     .concat(this.getValidationObject(data));
 
-    if (customValidation) {
-      return this.getCustomValidationObject(customValidation);
-    }
-    return this.getValidationObject(data);
+    const customObject = this.getObjectOfCustomValidation(customValidation);
+    const defaultObject = this.getFullObjectOfDefaultValidation(data);
+
+    console.log('234234');
+    console.log(Object.keys(customObject), Object.keys(defaultObject));
+
+    Object.keys(customObject).forEach((key) => {
+      if (defaultObject.hasOwnProperty(key)) {
+        defaultObject[key] = customObject[key];
+      } else {
+        defaultObject[key] = customObject[key];
+      }
+    });
+
+    return yup.object().shape(defaultObject);
   };
 }
 

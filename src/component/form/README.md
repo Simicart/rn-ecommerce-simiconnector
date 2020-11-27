@@ -22,7 +22,8 @@ and manually handle formik in `formik` props.
 * If you want to have CustomComponent but not related to Form (ex: decorator, ads), pass in `optOut`, 
 that component will not appear in form values when submit.
 
-* To write `validateObject`, it is a yup object, with keys as key in formShape.  
+* To write `validateObject`, it is a yup object, with keys as key in formShape. 
+`validationObject` will override existing validation if they have the same key.
 
 
 ### How it works

@@ -33,11 +33,11 @@ function TestGlobalLoading(props) {
     },
   ];
 
-  const validationSchema = yup.object().shape({
-    abc1: yup.string().test('oh no', 'oh no', (value) => {
-      return value?.length > 5;
+  const validationSchema = {
+    abc: yup.string().test('oh no', 'oh no', (value) => {
+      return (value ?? '').length > 3;
     }),
-  });
+  };
   // validationSchema.isValid({abc: 'asdasdsadsa'}).then(x=> console.log(x))
 
   // const abc = FormValidationClass.getValidationSchema(data, validationSchema);
@@ -49,10 +49,7 @@ function TestGlobalLoading(props) {
     <ScrollView>
       <View style={{ height: 50 }} />
       <Text>Something</Text>
-      <GeneralizedForm
-        formShape={data}
-        // validationObject={validationSchema}
-      />
+      <GeneralizedForm formShape={data} validationObject={validationSchema} />
     </ScrollView>
   );
 }
