@@ -80,6 +80,9 @@ class FormValidationClass {
     data: Array<strictFieldData>,
     customValidation: ?YupObject
   ): YupObject => {
+    // return this.getCustomValidationObject(customValidation)
+    //     .concat(this.getValidationObject(data));
+
     if (customValidation) {
       return this.getCustomValidationObject(customValidation);
     }

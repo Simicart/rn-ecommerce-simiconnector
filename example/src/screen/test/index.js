@@ -23,7 +23,7 @@ function TestGlobalLoading(props) {
     },
     {
       inputKey: 'abc1',
-      inputType: fieldType.TEXT,
+      inputType: fieldType.EMAIL,
       inputTitle: 'SHow it',
     },
     {
@@ -49,7 +49,10 @@ function TestGlobalLoading(props) {
     <ScrollView>
       <View style={{ height: 50 }} />
       <Text>Something</Text>
-      <GeneralizedForm formShape={data} validationObject={validationSchema} />
+      <GeneralizedForm
+        formShape={data}
+        // validationObject={validationSchema}
+      />
     </ScrollView>
   );
 }

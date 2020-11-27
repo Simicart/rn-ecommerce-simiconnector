@@ -18,7 +18,7 @@ export const GeneralizedForm = (props: FormProps) => {
   const [formShape, setFormShape] = useState(props?.formShape ?? []);
 
   const [customizedValidationObject, setValidationObject] = useState(
-    props?.validationObject ?? yup.object()
+    props?.validationObject ?? null
   );
   const [focusIndex, setFocusIndex] = useState(null);
 
@@ -26,12 +26,9 @@ export const GeneralizedForm = (props: FormProps) => {
     setFormShape(props?.formShape ?? []);
   }
   if (
-    !isDeeplyEqual(
-      customizedValidationObject,
-      props?.validationObject ?? yup.object()
-    )
+    !isDeeplyEqual(customizedValidationObject, props?.validationObject ?? null)
   ) {
-    setValidationObject(props?.validationObject ?? yup.object());
+    setValidationObject(props?.validationObject ?? null);
   }
 
   const normalizedFieldData = useMemo(
@@ -90,9 +87,8 @@ export const GeneralizedForm = (props: FormProps) => {
         onSubmit={submitHandler}
       >
         {(formik: FormikProps<FormikValues>) => {
-          console.log(JSON.stringify(formik.isValid, null, 2));
+          // console.log(JSON.stringify(formik.isValid, null, 2));
           console.log(JSON.stringify(formik.errors, null, 2));
-
           console.log(JSON.stringify(formik.values, null, 2));
           console.log(formik.isValid);
           return (
